@@ -1,6 +1,8 @@
 package com.study.restaurantapp.controller
 
 import com.study.restaurantapp.model.User
+import com.study.restaurantapp.model.UserDto
+import com.study.restaurantapp.model.UserRole
 import com.study.restaurantapp.service.UserServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -8,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/api")
 class UserController @Autowired constructor(
-        private val userService: UserServiceImpl
+    private val userService: UserServiceImpl
 ) {
     @GetMapping("/users")
     fun getAllUsers(): List<User> {
@@ -21,12 +23,12 @@ class UserController @Autowired constructor(
     }
 
     @PostMapping("/users")
-    fun createUser(@RequestBody user: User): User {
-        return userService.createUser(user)
+    fun createUser(@RequestBody userDto: UserDto): User {
+        return userService.createUser(userDto)
     }
 
     @PutMapping("/users/{id}")
-    fun updateUser(@PathVariable id: String, @RequestBody updatedUser: User): User {
+    fun updateUser(@PathVariable id: String, @RequestBody updatedUser: UserDto): User {
         return userService.updateUser(id, updatedUser)
     }
 

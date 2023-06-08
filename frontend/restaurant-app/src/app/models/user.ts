@@ -1,13 +1,14 @@
-export class User {
-  id: number;
-  username: string;
+export interface User {
+  id: string;
+  name: string;
+  email: string;
   password: string;
-  role: string;
+  role: UserRole;
+}
 
-  constructor(id: number, username: string, password: string, role: string) {
-    this.id = id;
-    this.username = username;
-    this.password = password;
-    this.role = role;
-  }
+export enum UserRole {
+  WAITER = "WAITER",
+  CHEF = "CHEF",
+  CLIENT = "CLIENT",
+  MANAGER = "MANAGER"
 }

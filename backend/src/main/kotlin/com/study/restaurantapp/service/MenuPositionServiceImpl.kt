@@ -6,21 +6,21 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
 @Service
-class MenuPositionServiceImpl(private val menuPositionRepository: MenuPositionRepository) {
+class MenuPositionServiceImpl(private val menuPositionRepository: MenuPositionRepository) : MenuPositionService {
 
-    fun getAllMenuPositions(): List<MenuPosition> {
+    override fun getAllMenuPositions(): List<MenuPosition> {
         return menuPositionRepository.findAll()
     }
 
-    fun getMenuPositionById(id: String): MenuPosition {
+    override fun getMenuPositionById(id: String): MenuPosition {
         return menuPositionRepository.findById(id).orElseThrow { NoSuchElementException("MenuPosition not found") }
     }
 
-    fun createMenuPosition(menuPosition: MenuPosition): MenuPosition {
+    override fun createMenuPosition(menuPosition: MenuPosition): MenuPosition {
         return menuPositionRepository.save(menuPosition)
     }
 
-    fun updateMenuPosition(id: String, updatedMenuPosition: MenuPosition): MenuPosition {
+    override fun updateMenuPosition(id: String, updatedMenuPosition: MenuPosition): MenuPosition {
         val menuPosition = menuPositionRepository.findById(id)
             .orElseThrow { NoSuchElementException("MenuPosition not found") }
 
@@ -34,7 +34,7 @@ class MenuPositionServiceImpl(private val menuPositionRepository: MenuPositionRe
         return menuPositionRepository.save(newMenuPosition)
     }
 
-    fun deleteMenuPosition(id: String) {
+    override fun deleteMenuPosition(id: String) {
         if (!menuPositionRepository.existsById(id)) {
             throw NoSuchElementException("MenuPosition not found")
         }

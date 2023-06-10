@@ -26,8 +26,8 @@ class OrderServiceImpl(private val orderRepository: OrderRepository) : OrderServ
         val newOrder = Order(
             id = order.id,
             client = order.client,
-            items = updatedOrder.items,
-            status = order.status
+            items = order.items,
+            status = updatedOrder.status
         )
 
         return orderRepository.save(newOrder)

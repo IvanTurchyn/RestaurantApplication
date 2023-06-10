@@ -9,6 +9,10 @@ import { OrderComponent } from './order/order.component';
 import { UserComponent } from './user/user.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import {ReactiveFormsModule} from "@angular/forms";
+import { FormsModule } from '@angular/forms';
+import { RegisterComponent } from './register/register.component';
+import { ProfileComponent } from './profile/profile.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 @NgModule({
   declarations: [
@@ -17,13 +21,17 @@ import {ReactiveFormsModule} from "@angular/forms";
     MenuComponent,
     OrderComponent,
     UserComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    RegisterComponent,
+    ProfileComponent,
+    OrderDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {OrderService} from "../order.service";
-import {Order} from "../models/order";
+import {Order, OrderStatus} from "../models/order";
+import {User} from "../models/user";
 
 @Component({
   selector: 'app-order',
@@ -9,6 +10,12 @@ import {Order} from "../models/order";
 })
 export class OrderComponent implements OnInit {
   orders: Order[] = [];
+  newOrder: Order = {
+    id: '',
+    client: {} as User,
+    items: [],
+    status: OrderStatus.IN_PROGRESS
+  };
 
   constructor(private orderService: OrderService) { }
 

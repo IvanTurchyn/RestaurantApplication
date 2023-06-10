@@ -1,25 +1,34 @@
-// auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {User} from "./models/user";
+import { Observable } from 'rxjs';
+import {MenuPosition} from "./models/menu-positions";
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
-  private apiUrl = 'https://your-api-endpoint.com';  // Zastąp właściwym adresem URL do Twojego API
+export class MenuService {
+  private apiUrl = 'http://localhost:8080/api/menu-positions';
 
   constructor(private http: HttpClient) { }
 
-  login(user: User) {
-    return this.http.post(`${this.apiUrl}/login`, user)
-      .subscribe(
-        data => {
-          // Zapisz token JWT i dane użytkownika w local storage
-          localStorage.setItem('currentUser', JSON.stringify(data));
-        },
-        error => {
-          console.log(error);
-        });
+  getAllMenuPositions(): Observable<MenuPosition[]> {
+    return this.http.get<MenuPosition[]>(this.apiUrl);
+  }
+
+  getMenuPositionById(id: string): Observable<MenuPosition> {
+    return this.http.get<MenuPosition>(`${this.apiUrl}/${id}`);
+  }
+
+  createMenuPosition(menuPosition: MenuPosition): Observable<MenuPosition> {
+    return this.http.post<MenuPosition>(this.apiUrl, menuPosition);
+  }
+
+  updateMenuPosition(id: string, updatedMenuPosition: MenuPosition): Observable<MenuPosition> {
+    return this.http.put<MenuPosition>(`${this.apiUrl}/${id}`, updatedMenuPosition);
+  }
+
+  deleteMenuPosition(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

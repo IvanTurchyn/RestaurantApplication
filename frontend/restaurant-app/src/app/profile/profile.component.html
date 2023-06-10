@@ -1,0 +1,45 @@
+<div *ngIf="currentUser">
+  <h1>Welcome, {{currentUser.username}}!</h1>
+
+  <div *ngIf="currentUser.role === UserRole.MANAGER">
+    <p>You have access to all functionalities:</p>
+    <ul>
+      <li><a routerLink="/menu">Menu</a></li>
+      <li><a routerLink="/order">Order</a></li>
+      <li><a routerLink="/user">User</a></li>
+    </ul>
+  </div>
+
+  <div *ngIf="currentUser.role === UserRole.CHEF">
+    <p>You have access to:</p>
+    <ul>
+      <li><a routerLink="/menu">Menu</a></li>
+      <li><a routerLink="/order">Order</a></li>
+    </ul>
+
+    <h2>Orders:</h2>
+    <div *ngFor="let order of orders">
+      <p>Order ID: {{order.id}}</p>
+      <p>Status: {{order.status}}</p>
+      <button (click)="updateOrderStatus(order)">Zmień status na 'READY_FOR_PICKUP'</button>
+    </div>
+  </div>
+
+  <div *ngIf="currentUser.role === UserRole.WAITER">
+    <p>You have access to:</p>
+    <ul>
+      <li><a routerLink="/menu">Menu</a></li>
+      <li><a routerLink="/order">Order</a></li>
+    </ul>
+  </div>
+
+  <div *ngIf="currentUser.role === UserRole.CLIENT">
+    <p>You have access to:</p>
+    <ul>
+      <li><a routerLink="/menu">Menu</a></li>
+      <li><a routerLink="/order">Order</a></li>
+    </ul>
+  </div>
+
+  <button (click)="authService.logout()">Logout</button>
+</div>

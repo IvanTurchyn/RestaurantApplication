@@ -11,5 +11,4 @@ class AppConfig {
     fun passwordEncoder(): PasswordEncoder {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder()
     }
-
 }

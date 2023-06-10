@@ -1,9 +1,9 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
   <div>
-    <label for="email">Email:</label>
-    <input id="email" type="email" formControlName="email">
-    <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid">
-      <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</div>
+    <label for="username">Username:</label>
+    <input id="username" type="username" formControlName="username">
+    <div *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid">
+      <div *ngIf="loginForm.get('username')?.errors?.['required']">Username is required.</div>
     </div>
   </div>
 

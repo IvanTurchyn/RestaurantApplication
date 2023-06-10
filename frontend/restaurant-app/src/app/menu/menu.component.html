@@ -1,1 +1,31 @@
-<p>menu works!</p>
+<div class="menu-container">
+  <div class="menu-list">
+    <h2>List of Menu Positions</h2>
+    <ul>
+      <li *ngFor="let menuPosition of menuPositions" (click)="selectMenuPosition(menuPosition.id)">
+        {{ menuPosition.name }} - {{ menuPosition.price }}
+      </li>
+    </ul>
+  </div>
+
+  <div class="menu-details" *ngIf="selectedMenuPosition">
+    <h2>Selected Menu Position Details</h2>
+    <p>Name: {{ selectedMenuPosition.name }}</p>
+    <p>Price: {{ selectedMenuPosition.price }}</p>
+    <button (click)="deleteMenuPosition(selectedMenuPosition.id)">Delete</button>
+
+    <div class="update-form">
+      <h2>Update Menu Position</h2>
+      <label>Name: <input [(ngModel)]="selectedMenuPosition.name"></label>
+      <label>Price: <input [(ngModel)]="selectedMenuPosition.price"></label>
+      <button (click)="updateMenuPosition(selectedMenuPosition.id, selectedMenuPosition)">Update</button>
+    </div>
+  </div>
+
+  <div class="create-form">
+    <h2>Create New Menu Position</h2>
+    <label>Name: <input [(ngModel)]="newMenuPosition.name"></label>
+    <label>Price: <input [(ngModel)]="newMenuPosition.price"></label>
+    <button (click)="createMenuPosition(newMenuPosition)">Create</button>
+  </div>
+</div>

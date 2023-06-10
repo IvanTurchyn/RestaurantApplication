@@ -15,15 +15,18 @@ export class AuthService {
     this.currentUser = this.currentUserSubject.asObservable();
   }
 
+  public getUserRole(): string {
+    const currentUser = this.currentUserValue;
+    return currentUser ? currentUser.role : '';
+  }
+
   public get currentUserValue(): User | null {
     return this.currentUserSubject.value;
   }
 
   login(username: string, password: string) {
-    // Replace with your actual Spring Boot API URL
     return this.http.post<any>(`http://localhost:8080/api/login`, { username, password })
       .pipe(map(user => {
-        // Store user details and JWT token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));
         this.currentUserSubject.next(user);
         return user;
@@ -31,7 +34,6 @@ export class AuthService {
   }
 
   logout() {
-    // Remove user from local storage and set current user to null
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
   }

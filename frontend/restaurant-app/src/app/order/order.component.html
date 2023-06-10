@@ -1,1 +1,53 @@
-<p>order works!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h2>Zamówienia</h2>
+      <!-- Lista zamówień -->
+      <ul class="list-group">
+        <li *ngFor="let order of orders" class="list-group-item">
+          <div class="d-flex justify-content-between">
+            <div>
+              <h5>{{ order.id }}</h5>
+              <p>Status: {{ order.status }}</p>
+              <p>Client: {{ order.client.username }}</p>
+              <!-- List items -->
+              <ul>
+                <li *ngFor="let item of order.items">
+                  {{ item.name }}: {{ item.price }}
+                </li>
+              </ul>
+            </div>
+            <div>
+              <button class="btn btn-primary" (click)="updateOrder(order.id, order)">Aktualizuj</button>
+              <button class="btn btn-danger" (click)="deleteOrder(order.id)">Usuń</button>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <h2>Stwórz nowe zamówienie</h2>
+      <!-- Formularz tworzenia nowego zamówienia -->
+      <form (ngSubmit)="createOrder(newOrder)" #orderForm="ngForm">
+        <!-- Formularz tutaj -->
+        <!-- Przykładowy input, powtórz dla wszystkich pól -->
+        <div class="form-group">
+          <label for="client">Klient</label>
+          <input type="text" class="form-control" id="client" required [(ngModel)]="newOrder.client.username" name="client">
+        </div>
+        <button type="submit" class="btn btn-success">Stwórz zamówienie</button>
+      </form>
+    </div>
+  </div>
+</div>
+</body>
+</html>

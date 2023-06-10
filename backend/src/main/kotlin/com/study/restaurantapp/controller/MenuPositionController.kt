@@ -35,4 +35,3 @@ class MenuPositionController @Autowired constructor(
         return menuPositionService.deleteMenuPosition(id)
     }
 }
-

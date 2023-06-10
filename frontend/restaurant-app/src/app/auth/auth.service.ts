@@ -24,6 +24,20 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
+  getToken(): string | null {
+    const currentUser = this.currentUserValue;
+    return currentUser && currentUser.token ? currentUser.token.toString() : null;
+  }
+
+  refreshToken(): Observable<User | null> {
+    return this.http.post<any>(`http://localhost:8080/api/refresh`, { token: this.getToken() })
+      .pipe(map(user => {
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+        return user;
+      }));
+  }
+
   login(username: string, password: string) {
     return this.http.post<any>(`http://localhost:8080/api/login`, { username, password })
       .pipe(map(user => {

@@ -10,7 +10,7 @@ import {UserService} from "../user.service";
 })
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
-  roles = ['Client', 'Waiter', 'Chef']; // Dostępne role do wyboru podczas rejestracji
+  roles = ['Client', 'Waiter', 'Chef'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
       this.userService.registerUser(this.registerForm.value).subscribe(
         data => {
           console.log('User registered successfully.');
-          // Możesz tutaj przekierować użytkownika do strony logowania lub gdziekolwiek indziej
+
         },
         error => {
           console.error('Error during registration:', error);

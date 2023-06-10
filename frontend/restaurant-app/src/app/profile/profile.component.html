@@ -18,11 +18,22 @@
     </ul>
 
     <h2>Orders:</h2>
-    <div *ngFor="let order of orders">
-      <p>Order ID: {{order.id}}</p>
-      <p>Status: {{order.status}}</p>
-      <button (click)="updateOrderStatus(order)">Zmień status na 'READY_FOR_PICKUP'</button>
-    </div>
+    <table class="table table-dark">
+      <thead>
+      <tr>
+        <th scope="col">Order ID</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let order of orders">
+        <td>{{order.id}}</td>
+        <td>{{order.status}}</td>
+        <td><button (click)="updateOrderStatus(order)">Zmień status na 'READY_FOR_PICKUP'</button></td>
+      </tr>
+      </tbody>
+    </table>
   </div>
 
   <div *ngIf="currentUser.role === UserRole.WAITER">

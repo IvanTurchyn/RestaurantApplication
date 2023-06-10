@@ -3,6 +3,7 @@ export interface User {
   username: string;
   password: string;
   role: UserRole;
+  token?: String;
 }
 
 export enum UserRole {

@@ -1,10 +1,7 @@
 package com.study.restaurantapp.service
 
 import com.study.restaurantapp.config.JwtProvider
-import com.study.restaurantapp.model.LoginDto
-import com.study.restaurantapp.model.User
-import com.study.restaurantapp.model.UserDto
-import com.study.restaurantapp.model.UserRole
+import com.study.restaurantapp.model.*
 import com.study.restaurantapp.repository.UserRepository
 import org.springframework.http.HttpStatus
 import org.springframework.security.authentication.BadCredentialsException
@@ -78,6 +75,10 @@ class UserServiceImpl(
             throw NoSuchElementException("User not found")
         }
         userRepository.deleteById(id)
+    }
+
+    override fun refreshToken(tokenDto: TokenDto): String {
+        return jwtProvider.refreshToken(tokenDto.token)
     }
 
     override fun loginUser(loginDto: LoginDto): String {

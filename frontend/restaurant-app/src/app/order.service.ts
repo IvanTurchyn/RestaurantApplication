@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import { Order } from './models/order';
+import {Order, OrderStatus} from './models/order';
 import {catchError} from "rxjs/operators";
 
 @Injectable({
@@ -31,6 +31,10 @@ export class OrderService {
           return throwError(error);
         })
       );
+  }
+
+  getOrdersByStatus(status: OrderStatus): Observable<Order[]> {
+    return this.http.get<Order[]>(`${this.apiUrl}/status/${status}`);
   }
 
   createOrder(order: Order): Observable<Order> {

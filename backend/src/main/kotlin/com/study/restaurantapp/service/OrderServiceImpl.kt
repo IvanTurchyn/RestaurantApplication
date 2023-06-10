@@ -1,6 +1,7 @@
 package com.study.restaurantapp.service
 
 import com.study.restaurantapp.model.Order
+import com.study.restaurantapp.model.OrderStatus
 import com.study.restaurantapp.repository.OrderRepository
 import org.springframework.stereotype.Service
 
@@ -31,6 +32,10 @@ class OrderServiceImpl(private val orderRepository: OrderRepository) : OrderServ
         )
 
         return orderRepository.save(newOrder)
+    }
+
+    override fun getOrderByStatus(status: OrderStatus) : List<Order> {
+        return orderRepository.findByStatus(status)
     }
 
     override fun deleteOrder(id: String) {

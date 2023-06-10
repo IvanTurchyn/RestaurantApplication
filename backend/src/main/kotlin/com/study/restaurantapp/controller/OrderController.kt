@@ -1,6 +1,7 @@
 package com.study.restaurantapp.controller
 
 import com.study.restaurantapp.model.Order
+import com.study.restaurantapp.model.OrderStatus
 import com.study.restaurantapp.service.OrderServiceImpl
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.web.bind.annotation.*
@@ -23,6 +24,11 @@ class OrderController @Autowired constructor(
     @PostMapping("/orders")
     fun createOrder(@RequestBody order: Order): Order {
         return orderService.createOrder(order)
+    }
+
+    @GetMapping("/orders/status/{status}")
+    fun getOrdersByStatus(@PathVariable status: OrderStatus): List<Order> {
+        return orderService.getOrderByStatus(status)
     }
 
     @PutMapping("/orders/{id}")

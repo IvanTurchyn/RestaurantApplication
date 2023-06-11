@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {catchError, map} from 'rxjs/operators';
 import {User} from "../models/user";
 import { Router } from '@angular/router';
 
@@ -40,15 +40,28 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    console.log('Login data:', username, password); // Sprawdź, czy dane logowania są przekazywane poprawnie
+    console.log('Login data:', username, password);
     return this.http.post<any>(`http://localhost:8080/api/login`, { username, password })
-      .pipe(map(user => {
-        console.log('Login response:', user); // Sprawdź, czy otrzymujesz odpowiedź z backendu
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
-        this.router.navigate(['/profile'])
-        return user;
-      }));
+      .pipe(
+        map(response => {
+          console.log('Login response:', response);
+          const user: User = {
+            id: '',
+            username,
+            password: '',
+            role: response.role,
+            token: response.token
+          };
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currentUserSubject.next(user);
+          this.router.navigate(['/profile']);
+          return user;
+        }),
+        catchError(error => {
+          console.error('Login error:', error);
+          throw error;
+        })
+      );
   }
 
   logout() {

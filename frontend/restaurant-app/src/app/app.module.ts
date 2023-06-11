@@ -15,7 +15,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import {AuthInterceptorService} from "./auth-interceptor.service";
 
-
 @NgModule({
   declarations: [
     AppComponent,

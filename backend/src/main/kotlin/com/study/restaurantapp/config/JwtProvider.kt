@@ -4,18 +4,17 @@ import com.study.restaurantapp.model.User
 import com.study.restaurantapp.model.UserRole
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.SignatureAlgorithm
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import java.util.*
+import io.jsonwebtoken.security.Keys
+import javax.crypto.SecretKey
+
 
 @Component
 class JwtProvider {
 
-    @Value("\${jwt.secret}")
-    private lateinit var jwtSecret: String
-
-    @Value("\${jwt.expiration}")
-    private var jwtExpiration: Long = 0
+    private val jwtSecret: SecretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512)
+    private val jwtExpiration: Long = 86400
 
     fun generateToken(user: User): String {
         val claims = HashMap<String, Any>()
@@ -26,7 +25,7 @@ class JwtProvider {
             .setClaims(claims)
             .setIssuedAt(Date())
             .setExpiration(Date(System.currentTimeMillis() + jwtExpiration * 1000))
-            .signWith(SignatureAlgorithm.HS512, jwtSecret)
+            .signWith(jwtSecret, SignatureAlgorithm.HS512)
             .compact()
     }
 
@@ -39,5 +38,4 @@ class JwtProvider {
 
         return generateToken(user)
     }
-
 }

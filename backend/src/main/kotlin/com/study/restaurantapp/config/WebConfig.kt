@@ -10,5 +10,8 @@ class WebConfig : WebMvcConfigurer {
         registry.addMapping("/**")
             .allowedOrigins("http://localhost:4200")
             .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+            .allowedHeaders("Authorization", "Content-Type")
+            .allowCredentials(true)
+            .exposedHeaders("Access-Control-Allow-Origin")
     }
 }

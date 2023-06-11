@@ -23,5 +23,4 @@ class LoginController @Autowired constructor(
         val newToken = userService.refreshToken(tokenDto)
         return ResponseEntity.ok(newToken)
     }
-
 }
